@@ -1,12 +1,12 @@
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GuestController;
+<?php
 
-Route::controller(GuestController::class)->group(function() {
-Route::get('/', 'getHome')->name('home');
-Route::post('/guests', 'createGuest')->name('createGuest');
-Route::get('/edit-reservation/{guest_id}', 'getEditReservation')->name('getEditReservation');
-Route::post('/edit-reservation', 'editReservation')->name('editReservation');
-Route::post('/delete-reservation/{guest_id}', 'deleteReservation')->name('deleteReservation');
-Route::post('/update-guest/{guest_id}', 'updateGuest')->name('updateGuest');
-Route::post('/delete-guest/{guest_id}', 'deleteGuest')->name('deleteGuest');
-});
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
+
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
+Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
+Route::post('/items', [ItemController::class, 'store'])->name('items.store');
+Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
+Route::put('/items/{item}', [ItemController::class, 'update'])->name('items.update');
+Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');

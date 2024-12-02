@@ -2,31 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Models\Item;
 
 class ItemController extends Controller
 {
-    public function fetchItemList()
+    public function index()
     {
         $items = Item::all();
-        return view('item_list', compact('items'));
+        return view('items.index', compact('items'));
     }
 
-    public function showAddItemForm()
+    public function create()
     {
-        return view('add_item');
+        return view('items.create');
     }
 
-    public function storeItem(Request $request)
+    public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
+        $item = Item::create($request->all());
+        return redirect()->route('items.index');
+    }
 
-        Item::create($request->all());
+    public function show(Item $item)
+    {
+        return view('items.show', compact('item'));
+    }
 
-        return redirect()->route('showAddItemForm')
-            ->with('success', 'Item created successfully.');
+    public function edit(Item $item)
+    {
+        return view('items.edit', compact('item'));
+    }
+
+    public function update(Request $request, Item $item)
+    {
+
+        $item->update($request->all());
+        return redirect()->route('items.index');
+    }
+
+    public function destroy(Item $item)
+    {
+        $item->delete();
+        return redirect()->route('items.index');
     }
 }
