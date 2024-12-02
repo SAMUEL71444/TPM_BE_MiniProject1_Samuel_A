@@ -9,14 +9,14 @@ class AddTimestampsToItemsTable extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->timestamps(); // Menambahkan kolom created_at dan updated_at
+            $table->timestamps();
         });
     }
 
     public function down()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->dropTimestamps(); // Menghapus kolom created_at dan updated_at
+            $table->dropTimestamps();
         });
     }
 }
